@@ -1,8 +1,4 @@
-/*
- * To change this license header, choose License Headers in Project Properties.
- * To change this template file, choose Tools | Templates
- * and open the template in the editor.
- */
+
 package zipper.archivize;
 
 import java.io.BufferedInputStream;
@@ -16,6 +12,7 @@ import java.util.zip.Adler32;
 import java.util.zip.CheckedOutputStream;
 import java.util.zip.ZipEntry;
 import java.util.zip.ZipOutputStream;
+
 
 /**
  *
@@ -32,39 +29,58 @@ public class Archivize implements Compresable
     private String basePath;
     
     private int buff;
+    
+    private String message;
+    
+    private CompressionLevel compressionLv;
+    
+    private final String source;
+    
+    private final String target;
+    
+    private long checkSum;
    
     
-    public Archivize(int sizeBuffor)
+    /**
+     * 
+     * @param comment Comments with describes our archive
+     * @param sourcePath Path where which contain files to archive
+     * @param targetPath Path where archive must be write
+     * @param lv  Level of compression CompressionLevel from Compresable
+     */
+    public Archivize(String comment, String sourcePath, String targetPath,CompressionLevel lv)
     {
-        buff = sizeBuffor;
+        message = comment;
+        source = sourcePath;
+        target = targetPath;
+        compressionLv = lv;
+        basePath = sourcePath;
+        
+        buff = 4096;
     }
     /**
      * 
-     * @param comment Archivum comment
-     * @param sourcePath Path to the source of file/files which will be archive
-     * @param targetPath Path to the file which will contain compressed file/files
+     * @throws java.io.FileNotFoundException
      */
     @Override
-    public void archivize(String comment, String sourcePath, String targetPath,int lv) throws FileNotFoundException, IOException
-    {
-            basePath = sourcePath;
-            
-            FileOutputStream fos = new FileOutputStream(targetPath);
+    public void archivize() throws FileNotFoundException, IOException
+    {    
+            FileOutputStream fos = new FileOutputStream(target);
             check = new CheckedOutputStream(fos, new Adler32());            
-            zipOut = new ZipOutputStream(new BufferedOutputStream(check));
-            
+            zipOut = new ZipOutputStream(new BufferedOutputStream(check));            
             //Seting basic ZIP info
+           
             zipOut.setMethod(ZipOutputStream.DEFLATED);//method of archive
-            zipOut.setLevel(lv);//must be from <0-9> set
-            zipOut.setComment(comment);    
+            
+            zipOut.setLevel(compressionLv.getValue());//must be from <0-9> set
+             
+            zipOut.setComment(message);    
             
             //Start of archive
-            System.out.println(sourcePath);
-            addFile(new File(sourcePath));   
+            addFile(new File(source));      
+            checkSum = check.getChecksum().getValue();
             
-           
-            zipOut.close();
-       
+            zipOut.close();       
     }
 
     private void addFile(File file) throws FileNotFoundException, IOException
@@ -73,14 +89,15 @@ public class Archivize implements Compresable
                 for(File f:file.listFiles())
                     addFile(f);
            
-           if(file.isFile())
-               toArchive(file,file.getAbsolutePath().replace(basePath+"\\", ""));
+           if(file.isFile())  
+               toArchive(file,file.getAbsolutePath().replace(basePath+File.separator, ""));
     }
 
     private void toArchive(File file,String entryName) throws FileNotFoundException, IOException
     {
         System.out.println(file.getAbsoluteFile()+" "+entryName);
-        ZipEntry entry = new ZipEntry(entryName);
+        ZipEntry entry = new ZipEntry(entryName);   
+       
         zipOut.putNextEntry(entry);
         
         fileIn = new FileInputStream(file);
@@ -90,20 +107,23 @@ public class Archivize implements Compresable
         byte[] BUFFER = new byte[buff];
         while((c=bis.read(BUFFER, 0, buff)) > 0)        
             zipOut.write(BUFFER, 0, c);
-       
-       
-       fileIn.close();
-       
-    }
+        
+        bis.close();       
+    } 
     
+    private long getCheckSum()
+    {
+        return checkSum;
+    }
     /**
      * 
      */
-    
+   
     public static void main(String[] args) throws FileNotFoundException, IOException
     {
-        Archivize a = new Archivize(1024);
-        a.archivize("Comments", "D:\\Studia\\Assembler","D:\\Studia\\p.zip", 5);
+        Archivize a = new Archivize("Comments", "D:\\Studia\\Algorytmy","D:\\Studia\\p.zip", CompressionLevel._0);
+        a.archivize();
+        System.out.println(a.getCheckSum());        
     }
     
 }
