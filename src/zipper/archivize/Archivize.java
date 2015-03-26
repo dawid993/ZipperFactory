@@ -56,7 +56,7 @@ public class Archivize implements Compresable
         compressionLv = lv;
         basePath = sourcePath;
         
-        buff = 4096;
+        buff = 1024;
     }
     /**
      * 
@@ -70,10 +70,8 @@ public class Archivize implements Compresable
             zipOut = new ZipOutputStream(new BufferedOutputStream(check));            
             //Seting basic ZIP info
            
-            zipOut.setMethod(ZipOutputStream.DEFLATED);//method of archive
-            
-            zipOut.setLevel(compressionLv.getValue());//must be from <0-9> set
-             
+            zipOut.setMethod(ZipOutputStream.DEFLATED);//method of archive            
+            zipOut.setLevel(compressionLv.getValue());//must be from <0-9> set             
             zipOut.setComment(message);    
             
             //Start of archive
@@ -121,7 +119,7 @@ public class Archivize implements Compresable
    
     public static void main(String[] args) throws FileNotFoundException, IOException
     {
-        Archivize a = new Archivize("Comments", "D:\\Studia\\Algorytmy","D:\\Studia\\p.zip", CompressionLevel._0);
+        Archivize a = new Archivize("Comments", "D:\\Studia\\Elektrotechnika","D:\\Studia\\p.zip", CompressionLevel._0);
         a.archivize();
         System.out.println(a.getCheckSum());        
     }
