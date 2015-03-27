@@ -35,7 +35,7 @@ public class Unpack
             Unpack.add(root,path,1);
         }
         
-        root.showChildrens();
+        root.getChild("Elektronika").showChildrens();
         
     }
     
