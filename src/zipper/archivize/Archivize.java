@@ -26,7 +26,7 @@ public class Archivize implements Compresable
     
     private FileInputStream fileIn;
     
-    private String basePath;
+   // private String basePath;
     
     private int buff;
     
@@ -54,7 +54,7 @@ public class Archivize implements Compresable
         source = sourcePath;
         target = targetPath;
         compressionLv = lv;
-        basePath = sourcePath;
+       
         
         buff = 1024;
     }
@@ -86,14 +86,14 @@ public class Archivize implements Compresable
            if(file.isDirectory())
                 for(File f:file.listFiles())
                     addFile(f);
-           
+         
            if(file.isFile())  
-               toArchive(file,file.getAbsolutePath().replace(basePath+File.separator, ""));
+               toArchive(file,file.getAbsolutePath().replace(source+File.separator, ""));
     }
 
     private void toArchive(File file,String entryName) throws FileNotFoundException, IOException
     {
-        System.out.println(file.getAbsoluteFile()+" "+entryName);
+        System.out.println(file.getAbsoluteFile()+" =>  "+entryName);
         ZipEntry entry = new ZipEntry(source.substring(source.lastIndexOf(File.separator)+1)+File.separator+entryName);   
        
         zipOut.putNextEntry(entry);
@@ -119,7 +119,7 @@ public class Archivize implements Compresable
    
     public static void main(String[] args) throws FileNotFoundException, IOException
     {
-        Archivize a = new Archivize("Comments", "D:\\GIT","D:\\p.zip", CompressionLevel._0);
+        Archivize a = new Archivize("Comments", "D:\\Studia\\Elektrotechnika\\Architektura systemów komputerowych\\Architektura","D:\\p.zip", CompressionLevel._0);
         a.archivize();
         System.out.println(a.getCheckSum());        
     }
