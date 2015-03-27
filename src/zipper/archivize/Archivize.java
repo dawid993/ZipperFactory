@@ -94,6 +94,7 @@ public class Archivize implements Compresable
     private void toArchive(File file,String entryName) throws FileNotFoundException, IOException
     {
         System.out.println(file.getAbsoluteFile()+" =>  "+entryName);
+        System.out.println(source.lastIndexOf(File.separator,2));
         ZipEntry entry = new ZipEntry(source.substring(source.lastIndexOf(File.separator)+1)+File.separator+entryName);   
        
         zipOut.putNextEntry(entry);
