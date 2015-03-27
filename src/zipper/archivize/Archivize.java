@@ -94,7 +94,7 @@ public class Archivize implements Compresable
     private void toArchive(File file,String entryName) throws FileNotFoundException, IOException
     {
         System.out.println(file.getAbsoluteFile()+" "+entryName);
-        ZipEntry entry = new ZipEntry(entryName);   
+        ZipEntry entry = new ZipEntry(source.substring(source.lastIndexOf(File.separator)+1)+File.separator+entryName);   
        
         zipOut.putNextEntry(entry);
         
@@ -119,7 +119,7 @@ public class Archivize implements Compresable
    
     public static void main(String[] args) throws FileNotFoundException, IOException
     {
-        Archivize a = new Archivize("Comments", "D:\\Studia\\Elektrotechnika","D:\\Studia\\p.zip", CompressionLevel._0);
+        Archivize a = new Archivize("Comments", "D:\\GIT","D:\\p.zip", CompressionLevel._0);
         a.archivize();
         System.out.println(a.getCheckSum());        
     }
