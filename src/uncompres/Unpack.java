@@ -1,12 +1,14 @@
 
 package uncompres;
 
-import java.io.File;
 import java.io.IOException;
 import java.util.Enumeration;
+import java.util.Map;
 import java.util.zip.ZipEntry;
 import java.util.zip.ZipFile;
+import structure.Tree;
 import structure.TreeNode;
+import structure.TreeStructure;
 
 /**
  *
@@ -21,7 +23,9 @@ public class Unpack
         
         String[] path = enums.nextElement().getName().split("\\\\");
         TreeNode root = new TreeNode(path[0],null);
-        Unpack.add(root,path,1);
+        TreeStructure tree = new TreeStructure(root);
+        
+        tree.add(root,path,1);
         
         while(enums.hasMoreElements())
         {
@@ -32,27 +36,10 @@ public class Unpack
 
            // System.out.println("");
             
-            Unpack.add(root,path,1);
+            tree.add(root,path,1);
         }
         
-        root.getChild("Elektronika").showChildrens();
+        tree.view(root, "");
         
-    }
-    
-    public static void add(TreeNode node,String[] paths,int i)
-    {       
-        TreeNode nextNode = node.getChild(paths[i]);
-        
-        if(nextNode == null)        
-            nextNode = node.addChild(paths[i]);
-        i++;    
-        if(i<paths.length)
-            add(nextNode,paths,i);    
-        
-    }
-    
-    public static void view(TreeNode node)
-    {
-        
-    }
+    }  
 }
