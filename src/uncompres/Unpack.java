@@ -1,6 +1,7 @@
 
 package uncompres;
 
+import java.io.File;
 import java.io.IOException;
 import java.util.Enumeration;
 import java.util.Map;
@@ -21,15 +22,16 @@ public class Unpack
         ZipFile zip = new ZipFile("D:\\p.zip"); 
         Enumeration< ? extends ZipEntry> enums = zip.entries();
         
-        String[] path = enums.nextElement().getName().split("\\\\");
+        String[] path = enums.nextElement().getName().split("/");
         TreeNode root = new TreeNode(path[0],null);
         TreeStructure tree = new TreeStructure(root);
         
-        tree.add(root,path,1);
+        if(path.length>1)
+            tree.add(root,path,1);
         
         while(enums.hasMoreElements())
         {
-            path = enums.nextElement().getName().split("\\\\");
+            path = enums.nextElement().getName().split("/");
                         
             //for(String s:path)
              //   System.out.print(s+" ");

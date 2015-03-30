@@ -34,7 +34,7 @@ public class TreeStructure
     
     public void view(Tree node,String prefix)
     {
-        System.out.println(prefix+" "+node.getPath());
+        System.out.println(prefix+" "+node.getName());
         
         Map<String,Tree> map = node.getChildrens();
         
