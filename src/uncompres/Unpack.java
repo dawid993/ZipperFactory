@@ -13,7 +13,8 @@ import unpack.Uncompressable;
  *
  * @author Dawid
  */
-public class Unpack implements Uncompressable
+
+public class Unpack implements unpack.Uncompressable
 {
     private String source;
     
@@ -49,10 +50,12 @@ public class Unpack implements Uncompressable
         tree.view(root, "");        
     }
     
+
     /**
      * Implementation in future
      * @param filePath 
      */
+
     @Override
     public void uncompress(String filePath) {
         throw new UnsupportedOperationException("Not supported yet."); //To change body of generated methods, choose Tools | Templates.
@@ -60,6 +63,8 @@ public class Unpack implements Uncompressable
     
     /**
      * 
+     * @param args
+     * @throws java.io.IOException
      */
     
     public static void main(String[] args) throws IOException
