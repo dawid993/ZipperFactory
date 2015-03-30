@@ -46,7 +46,7 @@ public class TreeNode implements Tree
     @Override
     public String getPath()
     {
-        return path;
+        return path.replace("root\\", "");//replacing artificial node, parent of everything
     }
     
     /**
