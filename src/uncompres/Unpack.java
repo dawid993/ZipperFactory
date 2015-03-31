@@ -2,6 +2,7 @@ package uncompres;
 
 import java.awt.EventQueue;
 import java.io.IOException;
+import java.nio.charset.Charset;
 import java.util.Enumeration;
 import java.util.zip.ZipEntry;
 import java.util.zip.ZipFile;
@@ -32,7 +33,7 @@ public class Unpack implements Uncompressable
     {
         source = zipFile;
         root = new TreeNode("root",null);
-        zip = new ZipFile(source);
+        zip = new ZipFile(source,Charset.forName("Cp437"));
         tree = new TreeStructure(root);
     }
     
