@@ -5,6 +5,7 @@
  */
 package treegui;
 
+import java.awt.Color;
 import javax.swing.JFrame;
 import javax.swing.JScrollPane;
 import javax.swing.JTree;
@@ -23,9 +24,10 @@ public class TreeGUIFrame extends JFrame
         setVisible(true);
         setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
         
-        visibleTree = tree;      
+        visibleTree = tree;             
         
         JScrollPane pane = new JScrollPane(visibleTree);
+        
         add(pane);
         
     }

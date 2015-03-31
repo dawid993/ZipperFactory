@@ -29,6 +29,8 @@ public class Unpack implements Uncompressable
     
     private TreeStructure tree;
     
+    
+    
     public Unpack(String zipFile) throws IOException
     {
         source = zipFile;
@@ -48,22 +50,27 @@ public class Unpack implements Uncompressable
         
         while(enums.hasMoreElements())
         {
-          path = enums.nextElement().getName().split("/");
+          path = enums.nextElement().getName().split("/");// \ or / to solve
           tree.add(root,path,0);
-        }    
-        
-        tree.view(root, "");        
+        }  
     }
     
     public void showTree()
     {
-        TreeGUIFrame frame = new TreeGUIFrame(tree.prepareGUIView());   
+        EventQueue.invokeLater(new Runnable()
+        {
+            @Override
+            public void run()
+            {
+              TreeGUIFrame frame = new TreeGUIFrame(tree.prepareGUIView());    
+            }                    
+        });        
     }
+    
     /**
      * Implementation in future
      * @param filePath 
      */
-
     @Override
     public void uncompress(String filePath) {
         throw new UnsupportedOperationException("Not supported yet."); //To change body of generated methods, choose Tools | Templates.
@@ -77,16 +84,8 @@ public class Unpack implements Uncompressable
     
     public static void main(String[] args) throws IOException
     {
-        final Unpack un = new Unpack("D:\\p.zip");
-        un.prepareFileUnpacking();
-        
-        EventQueue.invokeLater(new Runnable()
-        {
-            @Override
-            public void run() 
-            {
-               un.showTree();
-            }            
-        });
+        Unpack un = new Unpack("D:\\JEE\\JEE.zip");
+        un.prepareFileUnpacking();  
+        un.showTree();
     }    
 }
