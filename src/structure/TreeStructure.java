@@ -1,8 +1,10 @@
 package structure;
 
+
 import java.util.LinkedHashMap;
 import java.util.Map;
 import java.util.TreeMap;
+
 import javax.swing.JTree;
 import javax.swing.tree.DefaultMutableTreeNode;
 
@@ -68,6 +70,7 @@ public class TreeStructure
     }
     
     /**
+
      * This method is responsile for sorting files by this way:
      * Direcotires->Directories name(alphabetical)->Files->Files name(alphabetical)
      * We are using node and this childrens map(HashMap)
@@ -114,6 +117,7 @@ public class TreeStructure
     {
         sortTreeNodes(node);
         DefaultMutableTreeNode dnode = new DefaultMutableTreeNode(node.getName());
+
         
         Map<String,Tree> map = node.getChildrens();
         

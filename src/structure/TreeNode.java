@@ -2,8 +2,10 @@
 package structure;
 
 import java.io.File;
+
 import java.util.HashMap;
 import java.util.Map;
+
 
 /**
  * @author Dawid
@@ -32,10 +34,10 @@ public class TreeNode implements Tree
     {
         name = fileName;
         parent = entryParent;
-        childrens = new HashMap<String,Tree>();
-        
+        childrens = new HashMap<String,Tree>();        
         if(parent != null)
              path = parent.getPath()+"/"+fileName;
+
         else path=name;
     }
     
@@ -93,6 +95,7 @@ public class TreeNode implements Tree
         return childrens;
     }
     
+
     @Override
     public boolean isChildrensEmpty()
     {
@@ -104,4 +107,5 @@ public class TreeNode implements Tree
         childrens = map;
     }
     
+
 }

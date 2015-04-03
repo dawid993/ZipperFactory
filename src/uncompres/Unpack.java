@@ -35,9 +35,11 @@ public class Unpack implements Uncompressable
     {
         source = zipFile;
         root = new TreeNode("root",null);
+
         zip = new ZipFile(source,Charset.forName("Cp775"));
         tree = new TreeStructure(root);
         
+
     }
     
     /**
@@ -54,7 +56,6 @@ public class Unpack implements Uncompressable
           path = enums.nextElement().getName().split("/");// \ or / to solve
           tree.add(root,path,0);
         }  
-                
     }
     
     public void showTree()
@@ -87,6 +88,7 @@ public class Unpack implements Uncompressable
     public static void main(String[] args) throws IOException
     {
         Unpack un = new Unpack("D:\\E.zip");
+
         un.prepareFileUnpacking();  
         un.showTree();
     }    

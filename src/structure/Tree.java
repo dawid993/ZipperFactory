@@ -65,7 +65,10 @@ public interface Tree
      * @return full path to children
      */
     public String getPath();
+<<<<<<< HEAD
     
     public boolean isChildrensEmpty();
   
+=======
+>>>>>>> compressRefactoring
 }
