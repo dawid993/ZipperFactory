@@ -5,10 +5,14 @@
  */
 package treegui;
 
-import java.awt.Color;
 import javax.swing.JFrame;
 import javax.swing.JScrollPane;
 import javax.swing.JTree;
+import javax.swing.event.TreeSelectionEvent;
+import javax.swing.event.TreeSelectionListener;
+import javax.swing.tree.DefaultMutableTreeNode;
+import structure.Tree;
+import uncompres.Unpack;
 
 /**
  *
@@ -17,18 +21,32 @@ import javax.swing.JTree;
 public class TreeGUIFrame extends JFrame
 {
     private JTree visibleTree;
+    private Unpack unpacker;
   
-    public TreeGUIFrame(JTree tree)
+    public TreeGUIFrame(JTree tree,Unpack un)
     {
         setSize(400,400);
         setVisible(true);
         setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
         
-        visibleTree = tree;             
+        visibleTree = tree; 
+        unpacker = un;
         
+        visibleTree.getSelectionModel().addTreeSelectionListener(new TreeListener());
         JScrollPane pane = new JScrollPane(visibleTree);
         
         add(pane);
+        
+    }
+    
+    private class TreeListener implements TreeSelectionListener
+    {
+        @Override
+        public void valueChanged(TreeSelectionEvent e)
+        {
+                       
+            unpacker.uncompress(e.getPath().toString());
+        }
         
     }
 }

@@ -64,7 +64,7 @@ public class Unpack implements Uncompressable
             @Override
             public void run()
             {
-              TreeGUIFrame frame = new TreeGUIFrame(tree.prepareGUIView());    
+              TreeGUIFrame frame = new TreeGUIFrame(tree.prepareGUIView(),Unpack.this);    
             }                    
         });        
     }
@@ -74,8 +74,9 @@ public class Unpack implements Uncompressable
      * @param filePath 
      */
     @Override
-    public void uncompress(String filePath) {
-        throw new UnsupportedOperationException("Not supported yet."); //To change body of generated methods, choose Tools | Templates.
+    public void uncompress(String path)
+    {
+        System.out.println(path);
     }
     
     /**
