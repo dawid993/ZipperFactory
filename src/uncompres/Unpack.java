@@ -37,7 +37,6 @@ public class Unpack implements Uncompressable
         root = new TreeNode("root",null);
         zip = new ZipFile(source,Charset.forName("Cp775"));
         tree = new TreeStructure(root);
-        
     }
     
     /**
