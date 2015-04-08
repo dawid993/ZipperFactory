@@ -4,6 +4,7 @@ import java.awt.EventQueue;
 import java.io.IOException;
 import java.nio.charset.Charset;
 import java.util.Enumeration;
+import java.util.List;
 import java.util.zip.ZipEntry;
 import java.util.zip.ZipFile;
 import structure.Tree;
@@ -50,7 +51,9 @@ public class Unpack implements Uncompressable
         
         while(enums.hasMoreElements())
         {
-          path = enums.nextElement().getName().split("/");// \ or / to solve
+          ZipEntry entry = enums.nextElement();
+           // System.out.println(entry.getName());
+          path = entry.getName().split("/");// \ or / to solve
           tree.add(root,path,0);
         }     
     }
@@ -70,10 +73,14 @@ public class Unpack implements Uncompressable
      * Implementation in future
      * @param filePath 
      */
-    @Override
-    public void uncompress(String path)
+    public void uncompress(List<String> paths,String unpackPath)
     {
-        //System.out.println(path);
+        for(String path:paths)
+        {
+            String replace = path.replace("\\", "/");
+            ZipEntry entry = new ZipEntry(replace);
+            System.out.println(replace);
+        }
     }
     
     /**
@@ -89,4 +96,5 @@ public class Unpack implements Uncompressable
         
         un.showTree();
     }    
+   
 }

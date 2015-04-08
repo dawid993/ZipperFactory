@@ -5,12 +5,14 @@
  */
 package unpack;
 
+import java.util.List;
+
 /**
  *
  * @author Dawid
  */
 public interface Uncompressable
 {
-    public void uncompress(String filePath);
+    public void uncompress(List<String> filePath,String destPath);
     
 }

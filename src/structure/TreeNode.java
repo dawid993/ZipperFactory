@@ -35,7 +35,7 @@ public class TreeNode implements Tree
         childrens = new HashMap<String,Tree>();
         
         if(parent != null)
-             path = parent.getPath()+"/"+fileName;
+             path = parent.getPath()+System.getProperty("file.separator")+fileName;
         else path=name;
     }
     
@@ -46,7 +46,7 @@ public class TreeNode implements Tree
     @Override
     public String getPath()
     {
-        return path.replace("root/", "");//replacing artificial node, parent of everything
+        return path.replace("root"+System.getProperty("file.separator"), "");//replacing artificial node, parent of everything
     }
     
     /**
