@@ -46,7 +46,7 @@ public class TreeNode implements Tree
     @Override
     public String getPath()
     {
-        return path.replace("root\\", "");//replacing artificial node, parent of everything
+        return path.replace("root/", "");//replacing artificial node, parent of everything
     }
     
     /**
@@ -102,6 +102,11 @@ public class TreeNode implements Tree
     public void setMap(Map<String,Tree> map)
     {
         childrens = map;
+    }
+    
+    public String toString()
+    {
+        return name;
     }
     
 }

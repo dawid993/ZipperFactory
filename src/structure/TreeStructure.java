@@ -45,9 +45,9 @@ public class TreeStructure
      */
     public void view(Tree node,String prefix)
     {       
-        System.out.println(prefix+" "+node.getPath());
+        System.out.println(prefix+" "+node.getName());
         
-        Map<String,Tree> map = node.getChildrens();
+        Map<String,Tree> map = node.getChildrens();       
         
         if(map.isEmpty())
             return;
@@ -68,6 +68,24 @@ public class TreeStructure
     }
     
     /**
+     * Recursively ading to branches of JTree.
+     * @param node prepared node
+     * @return 
+     */
+    private DefaultMutableTreeNode generateGUIView(Tree node)
+    {
+        sortTreeNodes(node);
+        DefaultMutableTreeNode dnode = new DefaultMutableTreeNode(node);
+        
+        Map<String,Tree> map = node.getChildrens();
+        
+        for(Map.Entry<String,Tree> entry:map.entrySet())
+            dnode.add(generateGUIView(entry.getValue()));
+        
+        return dnode;
+    }
+    
+    /**
      * This method is responsile for sorting files by this way:
      * Direcotires->Directories name(alphabetical)->Files->Files name(alphabetical)
      * We are using node and this childrens map(HashMap)
@@ -75,7 +93,7 @@ public class TreeStructure
      * Later merg this list in order first directories and files
      * @param node 
      */
-    public void sortTreeNodes(Tree node)
+    private void sortTreeNodes(Tree node)
     {
        if(node.isChildrensEmpty())
            return;
@@ -99,27 +117,8 @@ public class TreeStructure
       for(Map.Entry<String,Tree> entry:leafs.entrySet())
           newMap.put(entry.getKey(), entry.getValue());
       
-     TreeNode n = (TreeNode) node;
-     n.setMap(newMap);  
-     
-     
+      TreeNode n = (TreeNode) node;
+      n.setMap(newMap); 
     }
     
-    /**
-     * Recursively ading to branches of JTree.
-     * @param node prepared node
-     * @return 
-     */
-    private DefaultMutableTreeNode generateGUIView(Tree node)
-    {
-        sortTreeNodes(node);
-        DefaultMutableTreeNode dnode = new DefaultMutableTreeNode(node.getName());
-        
-        Map<String,Tree> map = node.getChildrens();
-        
-        for(Map.Entry<String,Tree> entry:map.entrySet())
-            dnode.add(generateGUIView(entry.getValue()));
-        
-        return dnode;
-    }
 }

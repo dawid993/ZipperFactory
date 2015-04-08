@@ -52,8 +52,7 @@ public class Unpack implements Uncompressable
         {
           path = enums.nextElement().getName().split("/");// \ or / to solve
           tree.add(root,path,0);
-        }  
-                
+        }     
     }
     
     public void showTree()
@@ -67,7 +66,6 @@ public class Unpack implements Uncompressable
             }                    
         });        
     }
-    
     /**
      * Implementation in future
      * @param filePath 
@@ -75,7 +73,7 @@ public class Unpack implements Uncompressable
     @Override
     public void uncompress(String path)
     {
-        System.out.println(path);
+        //System.out.println(path);
     }
     
     /**
@@ -88,6 +86,7 @@ public class Unpack implements Uncompressable
     {
         Unpack un = new Unpack("D:\\E.zip");
         un.prepareFileUnpacking();  
+        
         un.showTree();
     }    
 }

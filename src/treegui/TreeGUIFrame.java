@@ -44,8 +44,9 @@ public class TreeGUIFrame extends JFrame
         @Override
         public void valueChanged(TreeSelectionEvent e)
         {
-                       
-            unpacker.uncompress(e.getPath().toString());
+          DefaultMutableTreeNode selectedNode = (DefaultMutableTreeNode) visibleTree.getLastSelectedPathComponent();
+          Tree obj = (Tree)selectedNode.getUserObject();
+          unpacker.uncompress(obj.getPath());
         }
         
     }
