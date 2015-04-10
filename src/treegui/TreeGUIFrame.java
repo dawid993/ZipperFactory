@@ -6,8 +6,12 @@
 package treegui;
 
 import java.awt.BorderLayout;
+import java.io.FileNotFoundException;
+import java.io.IOException;
 import java.util.ArrayList;
 import java.util.Map;
+import java.util.logging.Level;
+import java.util.logging.Logger;
 import javax.swing.JFrame;
 import javax.swing.JScrollPane;
 import javax.swing.JTextField;
@@ -49,26 +53,41 @@ public class TreeGUIFrame extends JFrame
     
     private class TreeListener implements TreeSelectionListener
     {
+        private ArrayList<String> list;
         @Override
         public void valueChanged(TreeSelectionEvent e)
         {
           DefaultMutableTreeNode selectedNode = (DefaultMutableTreeNode) visibleTree.getLastSelectedPathComponent();
           Tree obj = (Tree)selectedNode.getUserObject();
           
-          ArrayList<String> list = new ArrayList<String>();
-          if(obj.isChildrensEmpty() == false)
-          {  
-              for(Map.Entry<String,Tree> element:obj.getChildrens().entrySet())              
-               list.add(element.getValue().getPath()); 
-          }          
-          else
-              list.add(obj.getPath());
+          list = new ArrayList<String>();
+          
+          searchTree(obj);
           
           
           unpackPlace.setText(System.getProperty("user.home")+System.getProperty("file.separator")
           +obj.getPath());
-          unpacker.uncompress(list,unpackPlace.getText());
+            try 
+            {
+                unpacker.uncompress(list,System.getProperty("user.home"));
+            } 
+            catch (FileNotFoundException ex) 
+            {
+                Logger.getLogger(TreeGUIFrame.class.getName()).log(Level.SEVERE, null, ex);
+            } catch (IOException ex) {
+                Logger.getLogger(TreeGUIFrame.class.getName()).log(Level.SEVERE, null, ex);
+            }
         }
         
+        public void searchTree(Tree node)
+        {
+            if(node.isChildrensEmpty() == false)
+            {
+                for(Map.Entry<String,Tree> element:node.getChildrens().entrySet())              
+                    searchTree(element.getValue());
+            }
+            else
+                list.add(node.getPath());
+        }
     }
 }

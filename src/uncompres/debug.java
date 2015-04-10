@@ -20,15 +20,19 @@ public class debug
 {
  public static void main(String[] args) throws IOException
     {
-        ZipFile zip = new ZipFile("D:\\p.zip"); 
+        ZipFile zip = new ZipFile("D:\\E.zip"); 
         Enumeration< ? extends ZipEntry> enums = zip.entries();
-        
+        int i=0;
         while(enums.hasMoreElements())
         {
             ZipEntry e = enums.nextElement();
+            
             System.out.println(e);
+            if(!e.isDirectory())
+            i++;
         }
         
+        System.out.println(i);
        
         
     }     

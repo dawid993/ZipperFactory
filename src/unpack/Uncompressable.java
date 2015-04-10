@@ -5,6 +5,8 @@
  */
 package unpack;
 
+import java.io.FileNotFoundException;
+import java.io.IOException;
 import java.util.List;
 
 /**
@@ -13,6 +15,6 @@ import java.util.List;
  */
 public interface Uncompressable
 {
-    public void uncompress(List<String> filePath,String destPath);
+    public void uncompress(List<String> filePath,String destPath) throws FileNotFoundException,IOException;
     
 }
